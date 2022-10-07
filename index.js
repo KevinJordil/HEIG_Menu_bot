@@ -8,7 +8,7 @@ const bot = new Telegraf(config.BOT_TOKEN);
 
 bot.command('start', ctx => {
     //console.log(ctx.from)
-    bot.telegram.sendMessage(ctx.chat.id, 'Hello, pour voir le menu du jour envoies /menu', {
+    bot.telegram.sendMessage(ctx.chat.id, 'Hello, pour voir le menu du jour envoie /menu', {
     })
 })
 
