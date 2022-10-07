@@ -3,29 +3,38 @@ const axios = require("axios")
 const { Telegraf } = require('telegraf');
 
 
-const url = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
+const url = "https://apix.blacktree.io/top-chef/today";
 const bot = new Telegraf(config.BOT_TOKEN);
 
 bot.command('start', ctx => {
-    console.log(ctx.from)
-    bot.telegram.sendMessage(ctx.chat.id, 'hello there! Welcome to my new telegram bot.', {
+    //console.log(ctx.from)
+    bot.telegram.sendMessage(ctx.chat.id, 'Hello, pour voir le menu du jour envoies /menu', {
     })
 })
 
 
-bot.command('faim', ctx => {
+bot.command('menu', ctx => {
     //console.log(ctx.from)
-    axios.get(`https://apix.blacktree.io/top-chef/today2`)
+    axios.get(url)
         .then(response => {
             //console.log(response.data)
 
-            let message = ``;
+            let message = "";
 
             response.data.menus.forEach((menu, index) => {
                 if(menu.mainCourse[0] != undefined && menu.mainCourse[0] != ""){
-                    message += `🍴 MENU ${index + 1}🍴\n\n${menu.starter}\n\n${menu.mainCourse[0]}\n${menu.mainCourse[1]}\n${menu.mainCourse[2]}\n\n${menu.dessert}\n\n`
+                    message += `🍴 MENU ${index + 1}🍴\n\n`
+                    message += menu.starter + "\n\n"
+                    message = menu.mainCourse[0] != "" ? message + menu.mainCourse[0] + "\n" : message
+                    message = menu.mainCourse[1] != "" ? message + menu.mainCourse[1] + "\n" : message
+                    message = menu.mainCourse[2] != "" ? message + menu.mainCourse[2] + "\n" : message
+                    message += "\n" + menu.dessert  + "\n\n"
                 }
             })
+
+            if(message == ""){
+                message = "Aucun menu n'est disponible pour aujourd'hui."
+            }
 
             bot.telegram.sendMessage(ctx.chat.id, message, {})
 
@@ -33,7 +42,7 @@ bot.command('faim', ctx => {
         .catch(function (error) {
             console.log("Cannot access URL");
 
-            bot.telegram.sendMessage(ctx.chat.id, "Problème...", {})
+            bot.telegram.sendMessage(ctx.chat.id, "Problème de connexion à l'API", {})
         })
 })
 
