@@ -27,7 +27,9 @@ bot.command('menu', ctx => {
                     message += menu.starter + "\n\n"
                     message = menu.mainCourse[0] != "" ? message + menu.mainCourse[0] + "\n" : message
                     message = menu.mainCourse[1] != "" ? message + menu.mainCourse[1] + "\n" : message
-                    message = menu.mainCourse[2] != "" ? message + menu.mainCourse[2] + "\n" : message
+                    if(menu.mainCourse[2] != undefined && menu.mainCourse[2] != ""){
+                        message = menu.mainCourse[2] != "" ? message + menu.mainCourse[2] + "\n" : message
+                    }
                     message += "\n" + menu.dessert  + "\n\n"
                 }
             })
@@ -42,7 +44,7 @@ bot.command('menu', ctx => {
         .catch(function (error) {
             console.log("Cannot access URL");
 
-            bot.telegram.sendMessage(ctx.chat.id, "Problème de connexion à l'API", {})
+            bot.telegram.sendMessage(ctx.chat.id, "Il n'y a rien à manger aujourd'hui", {})
         })
 })
 
