@@ -42,7 +42,9 @@ bot.command('menu', ctx => {
             
             // If user specify a day
             if(user_day != undefined){
+                // Get the day number
                 day_number = days[user_day.toUpperCase()]
+                // Try to get the day name by the number
                 display_day = Object.keys(days)[day_number]          
             }
 
