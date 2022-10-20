@@ -2,7 +2,6 @@ const config = require('./config.json')
 const axios = require("axios")
 const { Telegraf } = require('telegraf');
 
-const now = new Date();
 const days = {
     'LUNDI':0,
     'MARDI':1,
@@ -24,6 +23,9 @@ bot.command('start', ctx => {
 bot.command('menu', ctx => {
     // Display data of user request
     //console.log(ctx.from)
+
+    // Get current date
+    let now = new Date();
 
     axios.get(url, {
         headers: {
