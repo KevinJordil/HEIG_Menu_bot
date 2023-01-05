@@ -1,1 +1,3 @@
 # HEIG_Menu_bot
+
+This Telegram bot allows users to receive the menu for a specific day of the week or the next available menu from the HEIG-VD engineering school. To receive the menu for a specific day of the week, the user can use the command /menu followed by the day of the week (in French). For example, using the command /menu lundi will send the menu for Monday. To receive the next available menu, the user can simply use the command /menu.
