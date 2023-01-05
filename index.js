@@ -71,8 +71,8 @@ bot.command('menu', ctx => {
             // Uppercase the first letter of the day and lowercase the rest
             display_day = display_day.charAt(0).toUpperCase() + display_day.slice(1).toLowerCase();
 
-            // Get the month of the desired menu
-            let menu_month = months[response.data.days[day_number].day.split('T')[0].split('-')[1]]
+            // Get the month of the desired menu (+ to convert string to number)
+            let menu_month = months[+response.data.days[day_number].day.split('T')[0].split('-')[1]]
             // Get the day of the desired menu
             let menu_day = response.data.days[day_number].day.split('T')[0].split('-')[2]
 
@@ -93,7 +93,9 @@ bot.command('menu', ctx => {
                     }
                     message += menu.starter + "\n\n"
                     message = menu.mainCourse[0] != "" ? message + menu.mainCourse[0] + "\n" : message
-                    message = menu.mainCourse[1] != "" ? message + menu.mainCourse[1] + "\n" : message
+                    if(menu.mainCourse[1] != undefined && menu.mainCourse[1] != ""){
+                        message = menu.mainCourse[1] != "" ? message + menu.mainCourse[1] + "\n" : message
+                    }
                     if(menu.mainCourse[2] != undefined && menu.mainCourse[2] != ""){
                         message = menu.mainCourse[2] != "" ? message + menu.mainCourse[2] + "\n" : message
                     }
